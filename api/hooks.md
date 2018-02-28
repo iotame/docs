@@ -6,7 +6,7 @@ Hooks comprise the main event functionality of iotame. Throughout the lifetime o
 2. **Mutations**  
   Mutations receive data with their event and are free to mutate the data, before returning it.
 3. **Actions**  
-  Actions are executed in response to events. They are the correct place to send device notifications, call APIs or the like.
+  Actions are executed in response to events. They are the correct place to send device notifications, call APIs or do anything else that requires a bit more time.
 
 ### Event registration
 Event naming should be as short as possible, while being as specific as needed for any extension to register its hooks. The goal is to allow extensions to hook into specifically the event they need. If an extension needs to listen to updates from bluetooth devices, they shouldn't need to register their hooks to listen to all device updates and then manually check whether the device uses bluetooth. This information should be included in the name.
@@ -14,7 +14,7 @@ Event naming should be as short as possible, while being as specific as needed f
 Good: `device.update.bluetooth.eq3`  
 Bad: `device.update`
 
-With this, an extension can listen to either all device updates `device.update.*`, all bluetooth updates `device.update.bluetooth` or specifically `eq3` updates with the full event identifier.
+With this, an extension can listen to either all device updates `device.update.*`, all bluetooth updates `device.update.bluetooth.*` or specifically `eq3` updates with the full event identifier.
 
 ### Dispatching events
 All extensions have a `dispatch` function, which they can use to dispatch events on their own. This function returns a promise, so we recommend using ES6's `async` & `await` syntax.
