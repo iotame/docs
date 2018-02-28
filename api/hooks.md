@@ -2,7 +2,7 @@
 Hooks comprise the main event functionality of iotame. Throughout the lifetime of the application hooks are triggered in order to filter or mutate data and perform actions. Events can have an arbitrary amount of hooks attached to them, which are executed in the following order:
 
 1. **Filter**  
-  Filters decide whether or not to continue the execution after whichever event they are attached to. They are used to verify data integrity before storing to the database or the like. If they decide to not stop execution, they return `true`, if execution should be halted they return `false`. The first time any filter returns `false` control-flow is returned to the caller, i.e. no other Filters are called afterwards.
+  Filters decide whether or not to continue the execution after whichever event they are attached to. They are used to verify data integrity before storing to the database or the like. If they return `true` or a resolving Promise, they allow execution to proceed. The first filter that returns `false` or a rejecting Promise will return control-flow to the caller.
 2. **Mutations**  
   Mutations receive data with their event and are free to mutate the data, before returning it.
 3. **Actions**  
@@ -36,6 +36,8 @@ module.exports = class extends Extension {
 ```
 
 The `catch` block will only be executed if a Filter rejects the event. Mutations and Actions rejecting are automatically cleaned up and don't stop execution of the caller's function.
+
+Filters and mutators are run in series, while actions are run in parallel. Keep this in mind as you don't want to block code execution for too long.
 
 !> Keep in mind that in order to use `await` you must mark your function as `async`. [Read this article](https://ponyfoo.com/articles/understanding-javascript-async-await) for more information on asynchronous functions.
 
