@@ -1,0 +1,22 @@
+{
+  "name": "@iotame/docs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "iotame Documentation",
+  "scripts": {
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iotame/docs.git"
+  },
+  "keywords": [
+    "documentation",
+    "iotame"
+  ],
+  "author": "Christopher Mühl <christopher@padarom.io>",
+  "license": "CC-BY-4.0",
+  "dependencies": {
+    "vuepress": "^0.7.0"
+  }
+}

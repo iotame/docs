@@ -1,3 +1,3 @@
-# Headline
+# iotame
 
-> An awesome project.
+> Taming the internet of things.
